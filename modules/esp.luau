@@ -106,7 +106,7 @@ function esp:draw(target : Player | Model | string)
 end;
 
 function esp:isdrawed(target : Player | Model | string)
-	local main : Player = (typeof(target) == 'Player' and target) or (typeof(target) == 'Instance' and game:GetService('Players'):GetPlayerFromCharacter(target)) or game:GetService('Players'):FindFirstChild(target);
+	local main : Player = ((typeof(target) == 'Instance' and target.ClassName == "Player") and target) or (typeof(target) == 'Instance' and game:GetService('Players'):GetPlayerFromCharacter(target)) or game:GetService('Players'):FindFirstChild(target) or target;
 	
 	if main then
 		return esp._q[main];
