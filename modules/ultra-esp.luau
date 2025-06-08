@@ -21,6 +21,10 @@ function NL_ESP:init(model : Config)
 		_cache = {};
 		_func = {}
 	};
+
+	function export:config(new)
+		model = new;
+	end;
 	
 	function export:draw(target : Model)
 		local cacheParts = {};
@@ -192,6 +196,16 @@ function NL_ESP:init(model : Config)
 				local lot = targetRoot.Position + (lookv * 100);
 
 				cloneRoot.CFrame = targetRoot.CFrame:Lerp(CFrame.new(lot),0.01);
+
+				wall.FillColor = model.WallColor;
+				wall.FillTransparency = model.FillTransparency;
+				wall.OutlineTransparency = model.OutlineTransparency;
+				wall.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop;
+
+				nornal.FillColor = model.Color;
+				nornal.FillTransparency = model.FillTransparency;
+				nornal.OutlineTransparency = model.OutlineTransparency;
+				nornal.DepthMode = Enum.HighlightDepthMode.Occluded;
 			end;
 		end);
 		
