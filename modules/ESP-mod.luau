@@ -63,7 +63,7 @@ function MonacoESP.new(Config: ESPConfig)
 		};
 
 		for i,v: BasePart in next , Model:GetDescendants() do
-			if v:IsA('BasePart') or v:IsA('UnionOperation') then
+			if v:IsA('MeshPart') or v:IsA('UnionOperation') then
 				v:SetAttribute("MONACROID",i);
 
 				_Highlight.__cache.Original[i] = v;
@@ -89,7 +89,7 @@ function MonacoESP.new(Config: ESPConfig)
 		end;
 
 		for i,v: BasePart in next , CloneModel:GetDescendants() do
-			if v:IsA('BasePart') or v:IsA('UnionOperation') then
+			if v:IsA('MeshPart') or v:IsA('UnionOperation') then
 				local ID = v:GetAttribute("MONACROID");
 				if ID then
 					_Highlight.__cache.Clone[ID] = v;
@@ -106,7 +106,8 @@ function MonacoESP.new(Config: ESPConfig)
 						table.insert(_Highlight.__signal , RunService.PreRender:Connect(function()
 							v.CFrame = Original.CFrame;
 							v.Position += Direction;
-
+							v.Transparency = 0;
+							
 							Direction = (Original.Position - Camera.CFrame.Position).Unit * Config.Direction;
 						end));
 					end;
