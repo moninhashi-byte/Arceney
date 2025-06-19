@@ -153,7 +153,11 @@ function MonacoESP.new(Config: ESPConfig)
 
 			table.clear(_Highlight.__cache.Clone);
 			table.clear(_Highlight.__cache.Original);
-
+			
+			if not Monacro.__cache[Model].Highlight and not Monacro.__cache[Model].ESP then
+				Monacro.__cache[Model] = nil;	
+			end;
+			
 			CloneModel:Destroy();
 		end;
 
@@ -400,7 +404,11 @@ function MonacoESP.new(Config: ESPConfig)
 
 		function _ESP:Destroy()
 			Monacro.__cache[Model].ESP = nil;
-
+			
+			if not Monacro.__cache[Model].Highlight and not Monacro.__cache[Model].ESP then
+				Monacro.__cache[Model] = nil;	
+			end;
+			
 			for i,v in next , _ESP.__signal do
 				if v then
 					v:Disconnect();
@@ -426,7 +434,15 @@ function MonacoESP.new(Config: ESPConfig)
 	function Monacro:ClearAll()
 		for i,v in next,Monacro.__cache do
 			if v then
-				v:Destroy();
+				if v.Highlight then
+					v.Highlight:Destroy();
+				end;
+				
+				if v.ESP then
+					v.ESP:Destroy();
+				end;
+				
+				Monacro.__cache[i] = nil;
 			end;
 		end;
 	end;
@@ -456,7 +472,7 @@ function MonacoESP.new(Config: ESPConfig)
 		MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		MainFrame.Size = UDim2.new(1, -95, 1, -95)
 		MainFrame.ZIndex = Zindex;
-		
+
 		BoxFrame.Name = "BoxFrame"
 		BoxFrame.Parent = MainFrame
 		BoxFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -465,7 +481,7 @@ function MonacoESP.new(Config: ESPConfig)
 		BoxFrame.BorderSizePixel = 0
 		BoxFrame.Size = UDim2.new(1, 0, 1, 0)
 		BoxFrame.ZIndex = Zindex + 1;
-		
+
 		TopLeftRight.Name = "TopLeftRight"
 		TopLeftRight.Parent = BoxFrame
 		TopLeftRight.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -473,7 +489,7 @@ function MonacoESP.new(Config: ESPConfig)
 		TopLeftRight.BorderSizePixel = 0
 		TopLeftRight.Size = UDim2.new(0.349999994, 0, 0, 1)
 		TopLeftRight.ZIndex = Zindex + 1;
-		
+
 		TopLeftDown.Name = "TopLeftDown"
 		TopLeftDown.Parent = BoxFrame
 		TopLeftDown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -481,7 +497,7 @@ function MonacoESP.new(Config: ESPConfig)
 		TopLeftDown.BorderSizePixel = 0
 		TopLeftDown.Size = UDim2.new(0, 1, 0.349999994, 0)
 		TopLeftDown.ZIndex = Zindex + 1;
-		
+
 		TopRightLeft.Name = "TopRightLeft"
 		TopRightLeft.Parent = BoxFrame
 		TopRightLeft.AnchorPoint = Vector2.new(1, 0)
@@ -491,7 +507,7 @@ function MonacoESP.new(Config: ESPConfig)
 		TopRightLeft.Position = UDim2.new(1, 0, 0, 0)
 		TopRightLeft.Size = UDim2.new(0.349999994, 0, 0, 1)
 		TopRightLeft.ZIndex = Zindex + 1;
-		
+
 		TopRightDown.Name = "TopRightDown"
 		TopRightDown.Parent = BoxFrame
 		TopRightDown.AnchorPoint = Vector2.new(1, 0)
@@ -501,7 +517,7 @@ function MonacoESP.new(Config: ESPConfig)
 		TopRightDown.Position = UDim2.new(1, 0, 0, 0)
 		TopRightDown.Size = UDim2.new(0, 1, 0.349999994, 0)
 		TopRightDown.ZIndex = Zindex + 1;
-		
+
 		BottomRightUp.Name = "BottomRightUp"
 		BottomRightUp.Parent = BoxFrame
 		BottomRightUp.AnchorPoint = Vector2.new(1, 1)
@@ -511,7 +527,7 @@ function MonacoESP.new(Config: ESPConfig)
 		BottomRightUp.Position = UDim2.new(1, 0, 1, 0)
 		BottomRightUp.Size = UDim2.new(0, 1, 0.349999994, 0)
 		BottomRightUp.ZIndex = Zindex + 1;
-		
+
 		BottomRightLeft.Name = "BottomRightLeft"
 		BottomRightLeft.Parent = BoxFrame
 		BottomRightLeft.AnchorPoint = Vector2.new(1, 1)
@@ -521,7 +537,7 @@ function MonacoESP.new(Config: ESPConfig)
 		BottomRightLeft.Position = UDim2.new(1, 0, 1, 0)
 		BottomRightLeft.Size = UDim2.new(0.349999994, 0, 0, 1)
 		BottomRightLeft.ZIndex = Zindex + 1;
-		
+
 		BottomLeftRight.Name = "BottomLeftRight"
 		BottomLeftRight.Parent = BoxFrame
 		BottomLeftRight.AnchorPoint = Vector2.new(0, 1)
@@ -531,7 +547,7 @@ function MonacoESP.new(Config: ESPConfig)
 		BottomLeftRight.Position = UDim2.new(0, 0, 1, 0)
 		BottomLeftRight.Size = UDim2.new(0.349999994, 0, 0, 1)
 		BottomLeftRight.ZIndex = Zindex + 1;
-		
+
 		BottomLeftUp.Name = "BottomLeftUp"
 		BottomLeftUp.Parent = BoxFrame
 		BottomLeftUp.AnchorPoint = Vector2.new(0, 1)
@@ -541,7 +557,7 @@ function MonacoESP.new(Config: ESPConfig)
 		BottomLeftUp.Position = UDim2.new(0, 0, 1, 0)
 		BottomLeftUp.Size = UDim2.new(0, 1, 0.349999994, 0)
 		BottomLeftUp.ZIndex = Zindex + 1;
-		
+
 		ESPLabel.Name = "ESPLabel"
 		ESPLabel.Parent = MainFrame
 		ESPLabel.AnchorPoint = Vector2.new(0.5, 0)
@@ -560,7 +576,7 @@ function MonacoESP.new(Config: ESPConfig)
 		ESPLabel.TextWrapped = true
 		ESPLabel.TextYAlignment = Enum.TextYAlignment.Bottom
 		ESPLabel.ZIndex = Zindex + 1;
-		
+
 		HealthBar.Name = "HealthBar"
 		HealthBar.Parent = MainFrame
 		HealthBar.AnchorPoint = Vector2.new(0, 0.5)
@@ -580,7 +596,7 @@ function MonacoESP.new(Config: ESPConfig)
 		HealthValue.Position = UDim2.new(0.5, 0, 1, 0)
 		HealthValue.Size = UDim2.new(1, 0, 0.5, 0)
 		HealthValue.ZIndex = Zindex + 1;
-		
+
 		OtherLabel.Name = "OtherLabel"
 		OtherLabel.Parent = MainFrame
 		OtherLabel.AnchorPoint = Vector2.new(0.5, 0)
@@ -599,14 +615,14 @@ function MonacoESP.new(Config: ESPConfig)
 		OtherLabel.TextWrapped = true
 		OtherLabel.TextYAlignment = Enum.TextYAlignment.Top
 		OtherLabel.ZIndex = Zindex + 1;
-		
+
 		local _Preview = {};
 
 		function _Preview:SetText(Main,Second)
 			ESPLabel.Text = Main;
 			OtherLabel.Text = Second or "";
 		end;
-		
+
 		function _Preview:SetHealthVisible(visible)
 			if visible then
 				HealthBar.Visible = true;
@@ -614,7 +630,7 @@ function MonacoESP.new(Config: ESPConfig)
 				HealthBar.Visible = false;
 			end;
 		end;
-		
+
 		function _Preview:SetBoxVisible(visible)
 			if visible then
 				BoxFrame.Visible = true;
