@@ -61,15 +61,17 @@ function MonacoESP.new(Config: ESPConfig)
 			Original = {},
 			Clone = {},
 		};
-
+		
 		for i,v: BasePart in next , Model:GetDescendants() do
 			if v:IsA('MeshPart') or v:IsA('UnionOperation') then
 				v:SetAttribute("MONACROID",i);
 
 				_Highlight.__cache.Original[i] = v;
+			elseif v:IsA('Script') or v:IsA('LocalScript') then
+				v:Destroy();
 			end;
 		end;
-
+		
 		Model.Archivable = true;
 
 		local CloneModel = Model:Clone();
@@ -87,11 +89,12 @@ function MonacoESP.new(Config: ESPConfig)
 			Humanoid.EvaluateStateMachine = false;
 			Humanoid.RequiresNeck = false;
 		end;
-
+		
 		for i,v: BasePart in next , CloneModel:GetDescendants() do
 			if v:IsA('MeshPart') or v:IsA('UnionOperation') then
 				local ID = v:GetAttribute("MONACROID");
 				if ID then
+					
 					_Highlight.__cache.Clone[ID] = v;
 
 					v.CanCollide = false;
@@ -102,13 +105,16 @@ function MonacoESP.new(Config: ESPConfig)
 
 					if Original then
 						local Direction = Vector3.zero;
+						
+						table.insert(_Highlight.__signal , task.spawn(function()
+							while true do task.wait()
+								v.CFrame = Original.CFrame;
+								v.Position += Direction;
+								v.Transparency = 0;
+								v.Anchored = true;
 
-						table.insert(_Highlight.__signal , RunService.PreRender:Connect(function()
-							v.CFrame = Original.CFrame;
-							v.Position += Direction;
-							v.Transparency = 0;
-							
-							Direction = (Original.Position - Camera.CFrame.Position).Unit * Config.Direction;
+								Direction = (Original.Position - Camera.CFrame.Position).Unit * Config.Direction;
+							end;
 						end));
 					end;
 				end;
@@ -144,7 +150,9 @@ function MonacoESP.new(Config: ESPConfig)
 			Monacro.__cache[Model].Highlight = nil;
 
 			for i,v in next , _Highlight.__signal do
-				if v then
+				if typeof(v) == "thread" then
+					task.cancel(v);
+				else	
 					v:Disconnect();
 				end;
 			end;
@@ -154,11 +162,11 @@ function MonacoESP.new(Config: ESPConfig)
 
 			table.clear(_Highlight.__cache.Clone);
 			table.clear(_Highlight.__cache.Original);
-			
+
 			if not Monacro.__cache[Model].Highlight and not Monacro.__cache[Model].ESP then
 				Monacro.__cache[Model] = nil;	
 			end;
-			
+
 			CloneModel:Destroy();
 		end;
 
@@ -405,11 +413,11 @@ function MonacoESP.new(Config: ESPConfig)
 
 		function _ESP:Destroy()
 			Monacro.__cache[Model].ESP = nil;
-			
+
 			if not Monacro.__cache[Model].Highlight and not Monacro.__cache[Model].ESP then
 				Monacro.__cache[Model] = nil;	
 			end;
-			
+
 			for i,v in next , _ESP.__signal do
 				if v then
 					v:Disconnect();
@@ -438,11 +446,11 @@ function MonacoESP.new(Config: ESPConfig)
 				if v.Highlight then
 					v.Highlight:Destroy();
 				end;
-				
+
 				if v.ESP then
 					v.ESP:Destroy();
 				end;
-				
+
 				Monacro.__cache[i] = nil;
 			end;
 		end;
