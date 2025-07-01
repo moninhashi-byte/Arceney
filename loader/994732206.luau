@@ -1,3 +1,8 @@
+if pcall(require , game:GetService("ReplicatedStorage").Util.CameraShaker) then
+    print('[Arceney.cc]: Internal Executor');
+else
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/fatal-error.luau"))()
+end;
 
 local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
 local url = "https://api.luarmor.net/files/v3/loaders/a2b4136acfe7328bf71a79e09208f9c5.lua";
