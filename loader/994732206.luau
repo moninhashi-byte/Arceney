@@ -7,6 +7,10 @@ end;
 local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
 local url = "https://api.luarmor.net/files/v3/loaders/a2b4136acfe7328bf71a79e09208f9c5.lua";
 
+if script_key then
+    return loadstring(game:HttpGet(url))(script_key);
+end;
+
 loader:Auth({
     OnGetKey = function()
         (setclipboard or toclipboard)("https://ads.luarmor.net/get_key?for=KNClinkvertise-NyZRHgKYOfty");
