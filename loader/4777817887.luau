@@ -1,6 +1,10 @@
 local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
 local url = "https://api.luarmor.net/files/v3/loaders/490997958adf82e81ac160016a0ef119.lua";
 
+if not getgc then
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/fatal-error.luau"))()
+end;
+
 loader:Auth({
     OnGetKey = function()
         (setclipboard or toclipboard)("https://ads.luarmor.net/get_key?for=KNClinkvertise-NyZRHgKYOfty");
