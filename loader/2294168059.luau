@@ -1,5 +1,5 @@
 if game then
-    return game.Players.LocalPlayer:Kick("This game is already discontinued. more info is on discord: https://discord.com/channels/1296477210772766852/1297179529785114624/1402265267374919741")
+    return game.Players.LocalPlayer:Kick("This game is already discontinued.\nmore info is on discord: https://discord.com/channels/1296477210772766852/1297179529785114624/1402265267374919741")
 end;
 
 local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
