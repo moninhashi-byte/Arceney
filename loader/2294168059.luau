@@ -1,3 +1,7 @@
+if game then
+    return game.Players.LocalPlayer:Kick("This game is already discontinued. more info is on discord: https://discord.com/channels/1296477210772766852/1297179529785114624/1402265267374919741")
+end;
+
 local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
 local url = "https://api.luarmor.net/files/v3/loaders/818566b83f521353916bd99d13e2a9d5.lua";
 
