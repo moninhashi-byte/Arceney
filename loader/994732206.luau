@@ -1,4 +1,6 @@
-if getgenv().legacy = true then
+getgenv().load_legacy = function()
+    print("[Arceney.cc]: loading legacy version");
+
     if script_key then
         return loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/4af3140e536e9af460d157d2f5edba9a.lua"))(script_key);
     end;
@@ -22,8 +24,10 @@ if getgenv().legacy = true then
             return true;
         end;
     });
+end;
 
-    return;
+if getgenv().legacy = true then
+    return getgenv().load_legacy();    
 end;
 
 
@@ -31,7 +35,7 @@ end;
 if pcall(require , game:GetService("ReplicatedStorage").Util.CameraShaker) then
     print('[Arceney.cc]: Internal Executor');
 else
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/fatal-error.luau"))()
+    return getgenv().load_legacy();
 end;
 
 local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
