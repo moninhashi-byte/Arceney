@@ -1,3 +1,33 @@
+if getgenv().legacy = true then
+    if script_key then
+        return loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/4af3140e536e9af460d157d2f5edba9a.lua"))(script_key);
+    end;
+
+    local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/modules/loader.luau"))();
+
+    loader:Auth({
+        OnGetKey = function()
+            (setclipboard or toclipboard)("https://ads.luarmor.net/get_key?for=KNClinkvertise-NyZRHgKYOfty");
+        end;
+        OnLogIn = function(key,cls)
+            task.spawn(function()
+                script_key = key;
+                getfenv().script_key = key;
+                getgenv().script_key = key;
+                loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/4af3140e536e9af460d157d2f5edba9a.lua"))(key);
+            end);
+    
+            task.wait(0.25);
+    
+            return true;
+        end;
+    });
+
+    return;
+end;
+
+
+
 if pcall(require , game:GetService("ReplicatedStorage").Util.CameraShaker) then
     print('[Arceney.cc]: Internal Executor');
 else
