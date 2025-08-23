@@ -26,11 +26,9 @@ getgenv().load_legacy = function()
     });
 end;
 
-if getgenv().legacy = true then
+if getgenv().legacy == true then
     return getgenv().load_legacy();    
 end;
-
-
 
 if pcall(require , game:GetService("ReplicatedStorage").Util.CameraShaker) then
     print('[Arceney.cc]: Internal Executor');
