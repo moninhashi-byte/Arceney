@@ -31,17 +31,17 @@ getgenv().ArceneyAPI:GetInterface() -> Section API;
 getgenv().ArceneyAPI:GetRagebotTarget() -> Character : Model , Position : Vector3
 ```
 
-### Get Legitbot Target
+## Get Legitbot Target
 ```lua
 getgenv().ArceneyAPI:GetLegitbotTarget() -> Character : Model , Position : Vector3
 ```
 
-### Aimbot
+## Aimbot
 ```lua
 getgenv().ArceneyAPI:Aim(<Target : Vector3>)
 ```
 
-### Notification
+## Notification
 ```lua
 getgenv().ArceneyAPI:Notify(Title : string , Content : string , Duration : Number) -> Notification API
 ```
