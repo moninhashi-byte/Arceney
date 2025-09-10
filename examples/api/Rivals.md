@@ -31,7 +31,7 @@ getgenv().ArceneyAPI:GetInterface() -> Section API;
 getgenv().ArceneyAPI:GetRagebotTarget() -> Character : Model , Position : Vector3
 ```
 
-### Get Legotbot Target
+### Get Legitbot Target
 ```lua
 getgenv().ArceneyAPI:GetLegitbotTarget() -> Character : Model , Position : Vector3
 ```
