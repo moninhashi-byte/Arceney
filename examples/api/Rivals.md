@@ -15,6 +15,37 @@ getgenv().ArceneyAPI:LegitFire();
 getgenv().ArceneyAPI:SlientFire(<Hitbox Instance> , <Spread CFrame>);
 ```
 
+## Is Shooting
+```lua
+getgenv().ArceneyAPI:IsShooting() -> boolean;
+```
+
+## Get Lua Scripts Interface
+```lua
+getgenv().ArceneyAPI:GetInterface() -> Section API;
+-- Document: https://cat-sus.gitbook.io/compkiller/documents/interface#creating-section
+```
+
+## Get Ragebot Target
+```lua
+getgenv().ArceneyAPI:GetRagebotTarget() -> Character : Model , Position : Vector3
+```
+
+### Get Legotbot Target
+```lua
+getgenv().ArceneyAPI:GetLegitbotTarget() -> Character : Model , Position : Vector3
+```
+
+### Aimbot
+```lua
+getgenv().ArceneyAPI:Aim(<Target : Vector3>)
+```
+
+### Notification
+```lua
+getgenv().ArceneyAPI:Notify(Title : string , Content : string , Duration : Number) -> Notification API
+```
+
 ## Get Config
 ```lua
 getgenv().ArceneyAPI:GetConfig();
