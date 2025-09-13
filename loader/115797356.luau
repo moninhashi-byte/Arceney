@@ -78,7 +78,7 @@ if not script_key then
 	k.Position = UDim2.new(0, 10, 0, 10)
 	k.Size = UDim2.new(1, -20, 0, 15)
 	k.Font = Enum.Font.GothamBold
-	k.Text = "RIVAL"
+	k.Text = "COUNTER-BLOX"
 	k.TextColor3 = Color3.fromRGB(255, 255, 255)
 	k.TextSize = 12.000
 	k.TextTransparency = 0.500
