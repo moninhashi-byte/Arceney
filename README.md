@@ -1,4 +1,4 @@
-# Arceney.CC
+# Arceney.cc
 
 ## 🛡️ Loader
 - Get the script below and paste it into your executor
