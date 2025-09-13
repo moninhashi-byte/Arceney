@@ -7,7 +7,7 @@ local LicenseKeyD = "Arceney.license";
 
 if
 	not request or not newcclosure or not hookmetamethod or not newcclosure or not checkcaller or not getconstants or
-	not getupvalues
+	not getupvalues or not getrawmetatable
 then
 	return cloneref(game:GetService("Players")).LocalPlayer:Kick("UNSUPPORTED EXECUTOR")
 end;
