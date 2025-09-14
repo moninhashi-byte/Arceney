@@ -43,14 +43,14 @@ getconstants = getconstants or debug.getconstants
 getrawmetatable = getrawmetatable or debug.getrawmetatable
 
 -- Check Executor Type External/Internal --
-local PlayerModule = game:GetService("ReplicatedStorage").Quests;
-local Test = pcall(require , PlayerModule);
+local PlayerModule = game:GetService("ReplicatedStorage").Util.CameraShaker;
+local Test , ms = pcall(require , PlayerModule);
 
-LoaderWindow:AddLabel(string.format("Executor: %s",tostring(identifyexecutor())),"Success");
+LoaderWindow:AddLabel(string.format("Executor: %s",tostring(identifyexecutor())) , "Success");
 
 task.wait(0.2);
 
-if Test == true then -- Internal
+if Test == true and ms and typeof(ms) == 'table' then -- Internal
     LoaderWindow:AddLabel("Internal Executor","Success");
 else -- External
     LoaderWindow:AddLabel("External Executor","Warning");
