@@ -2,8 +2,19 @@
     Blox Fruits - Loader (Rewrite)
 ]]
 
+local loader_cache = "ARCENEY_LOADER_CACHE";
+
 local LuarmorLoader = "https://api.luarmor.net/files/v3/loaders/a2b4136acfe7328bf71a79e09208f9c5.lua";
-local Loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/interface/loader.luau"))();
+local Loader = (isfile(loader_cache) and loadstring(readfile(loader_cache))());
+
+if not isfile(loader_cache) or not Loader then
+    local src = game:HttpGet("https://raw.githubusercontent.com/4lpaca-pin/Arceney/refs/heads/main/interface/loader.luau");
+
+    writefile(loader_cache , src);
+
+    Loader = loadstring(src)();
+end;
+
 local LoaderWindow = Loader.new("ARCENEY.CC","LOADER");
 local LicenseKeyCache = "Arceney.license";
 
