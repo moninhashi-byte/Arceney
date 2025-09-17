@@ -59,7 +59,7 @@ else -- External
 
     LuarmorLoader = "https://api.luarmor.net/files/v3/loaders/4af3140e536e9af460d157d2f5edba9a.lua";
 
-    LoaderWindow:AddLabel("Changed to Legacy Version","Warning");
+    LoaderWindow:AddLabel("Switch to Legacy Version","Warning");
 end;
 
 task.wait(0.4);
@@ -87,27 +87,49 @@ local CheckKey = function(LicenseKey)
 end;
 
 local LoadKeySystem = function()
-    LoaderWindow:AddLabel("Copied Key System Link","Success");
+    local RateLimit = false;
 
-    setclipboard("https://ads.luarmor.net/get_key?for=KNClinkvertise-NyZRHgKYOfty")
+    LoaderWindow:AddLabel("Key System","Success");
 
-    while true do task.wait(0.4)
-        local LicenseKey , Payback = LoaderWindow:AddInput("License Key","Warning");
+    LoaderWindow:Whitelist({
+        {
+            Text = "Get Key",
+            Callback = function()
+                (setclipboard or toclipboard)("https://ads.luarmor.net/get_key?for=KNClinkvertise-NyZRHgKYOfty")
+            end,
+        },
+        {
+            Text = "Log-In",
+            Callback = function(LicenseKey)
+                if RateLimit then
+                    return;
+                end;
 
-        if CheckKey(tostring(LicenseKey)) then
-            Payback.change_type("Success");
+                RateLimit = true;
 
-            getgenv().script_key = tostring(LicenseKey);
-            getfenv().script_key = tostring(LicenseKey);
+                if CheckKey(tostring(LicenseKey)) then
+                    getgenv().script_key = tostring(LicenseKey);
+                    getfenv().script_key = tostring(LicenseKey);
 
-            script_key = LicenseKey;
+                    script_key = LicenseKey;
 
-            writefile(LicenseKeyCache , LicenseKey);
-            break;
-        else
-            Payback.change_type("Error");
-        end;
-    end;
+                    writefile(LicenseKeyCache , LicenseKey);
+
+                    LoaderWindow:WLWarning("Success","Loading Script ...");
+
+                    task.wait(0.5);
+
+                    return LoaderWindow:CloseWhitelist();
+                else
+                    LoaderWindow:WLWarning("Error","Invalid License Key");
+                end;
+
+                RateLimit = false;
+
+                return false;
+            end,
+        }
+    });
 
     task.wait(0.1);
 end;
@@ -128,6 +150,18 @@ if not script_key then
         end;
     else
         LoadKeySystem();
+    end;
+else
+    LoaderWindow:AddLabel("Checking Key ...","Success");
+
+    task.wait(0.1);
+
+    if not CheckKey(tostring(script_key)) then
+        LoaderWindow:AddLabel("Invalid Key","Error");
+
+        LoadKeySystem();
+    else
+        LoaderWindow:AddLabel("Whitelist!","Success");
     end;
 end;
 
