@@ -76,66 +76,11 @@ local sdk_api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/libra
 
 sdk_api.script_id = ScriptId;
 
-local CheckKey = function(LicenseKey)
-    if not LicenseKey:byte() then
-        task.wait()
-
-        return false;
-    end;
-
-    local test , message = pcall(sdk_api.check_key , tostring(LicenseKey));
-
-    if test and message.code == "KEY_VALID" then
-        return true;
-    end;
-
-    return false;
-end;
-
-local LoadKeySystem = function()
-    LoaderWindow:AddLabel("Copied Key System Link","Success");
-
-    setclipboard("https://ads.luarmor.net/get_key?for=KNClinkvertise-NyZRHgKYOfty")
-
-    while true do task.wait(0.4)
-        local LicenseKey , Payback = LoaderWindow:AddInput("License Key","Warning");
-
-        if CheckKey(tostring(LicenseKey)) then
-            Payback.change_type("Success");
-
-            getgenv().script_key = tostring(LicenseKey);
-            getfenv().script_key = tostring(LicenseKey);
-
-            script_key = LicenseKey;
-
-            writefile(LicenseKeyCache , LicenseKey);
-            break;
-        else
-            Payback.change_type("Error");
-        end;
-    end;
-
-    task.wait(0.1);
-end;
-
-if not script_key then
-    if isfile(LicenseKeyCache) then
-        local Key = readfile(LicenseKeyCache);
-
-        LoaderWindow:AddLabel("Checking Key ...","Success");
-
-        if CheckKey(tostring(Key)) then
-            getgenv().script_key = tostring(Key);
-            getfenv().script_key = tostring(Key);
-
-            LoaderWindow:AddLabel("Whitelist!","Success");
-        else
-            LoadKeySystem();
-        end;
-    else
-        LoadKeySystem();
-    end;
-end;
+-- Key system removed: bypassing license checks
+-- Previously this section implemented an interactive/license-check flow.
+-- Now we simply ensure `script_key` exists (empty string) and continue loading.
+getgenv().script_key = getgenv().script_key or ""
+script_key = script_key or getgenv().script_key
 
 task.wait(0.5);
 
