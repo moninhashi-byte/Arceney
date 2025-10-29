@@ -8,6 +8,10 @@ pcall(function()
     getrenv=getrenv or function()return b end;
     getrenv()._G=getrenv()._G or{}
 end)
-local c=pcall(function()
+local success, result = pcall(function()
     return loadfile(a)()
 end)
+
+if not success then
+    print("Arceney script failed to load: " .. tostring(result))
+end
